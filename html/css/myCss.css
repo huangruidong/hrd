@@ -57,7 +57,7 @@
 .one-img-2 {
     /*position: absolute;*/
     width: 6%;
-    opacity: 0.8;
+    opacity: 1;
     float:left;
 
 
@@ -65,7 +65,7 @@
 .one-img-3 {
     width: 80%;
     margin-left: 10%;
-    opacity: 0.7;
+    opacity: 1;
     background-color: black;
 }
 
