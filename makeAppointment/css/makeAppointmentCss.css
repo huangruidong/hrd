@@ -31,8 +31,8 @@
 
 .Text_Css {
     width: 90%;
-    margin-top: 15px;
-    margin-bottom: 15px;
+    margin-top: 10px;
+    margin-bottom: 3%;
     height: 10%;
     font-size: 2em;
 }
@@ -43,7 +43,6 @@
     height: 10%;
     overflow: hidden;
     border: solid 1px #ccc;
-    margin-top: 20px;
 }
 
 #parent select{
