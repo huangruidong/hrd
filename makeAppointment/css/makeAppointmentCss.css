@@ -1,24 +1,20 @@
-.div_Title {
-    width: 90%;
-    margin-left:5%;
-}
 
 .div_table {
     width: 90%;
-    margin-left:10%;
-    margin-top: 3%;
+    margin-top: 5%;
+    margin-left:5%;
 }
 
 .div_button {
-    width: 94%;
-    margin-left:3%;
+    width: 90%;
+    margin-left:5%;
     margin-top:5%;
-    height: 10%;
+    height: 60px;
     border-radius: 5px;
     background: red;
     border: none;
     color: white;
-    font-size:3em;
+    font-size:20px;
 }
 
 .qq {
@@ -30,7 +26,7 @@
 }
 
 .Text_Css {
-    width: 90%;
+    width: 100%;
     margin-top: 10px;
     margin-bottom: 3%;
     height: 10%;
