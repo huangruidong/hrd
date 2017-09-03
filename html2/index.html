@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/untitled1/css/mycss.css" type="text/css"/>
+    <title>立即预约</title>
+</head>
+<body>
+<div>
+    <div>
+        <table class="div_table">
+            <tr ><td class="qq">预约人姓名:</td><td><input id="nameInput" class="Text_Css" placeholder="请输入预约人姓名"></td></tr>
+            <tr ><td class="qq">电话:</td><td><input id="phoneInput" class="Text_Css" placeholder="请输入联系电话"></td></tr>
+            <tr ><td class="qq">地址:</td><td><input id="addressInput" class="Text_Css" placeholder="请输入详细地址"></td></tr>
+            <tr ><td class="qq">房屋面积:</td><td><input id="areaInput" class="Text_Css" placeholder="请输入房屋面积"></td></tr>
+            <tr ><td class="qq">预约时间</td><td><input id="timeInput" class="Text_Css" placeholder="请输入预约时间"></td></tr>
+            <tr ><td class="qq">预约类型:</td><td>
+                <div id="parent">
+                    <select id="select_text">
+                        <option value="0">家庭及单位保洁</option>
+                        <option value="1">装修工程保洁</option>
+                        <option value="2">大型工程保洁</option>
+                        <option value="3">地毯清洗</option>
+                        <option value="4">家庭开荒保洁</option>
+                        <option value="5">酒店、宾馆保洁</option>
+                        <option value="6">皮艺布艺沙发清洗保养</option>
+                        <option value="7">油烟机免拆卸清洗</option>
+                        <option value="8">家电专业清洗,消毒，护理</option>
+                        <option value="9">小时工服务</option>
+                        <option value="10">定期及长期保洁服务</option>
+                        <option value="11">专业玻璃清洁</option>
+                    </select>
+                </div>
+            </td></tr>
+        </table>
+    </div>
+    <button id="submit" class="div_button">提交</button>
+</div>
+<script>
+    var nameText = document.getElementById("nameInput");
+    var phoneInput = document.getElementById("phoneInput");
+    var addressInput = document.getElementById("addressInput");
+    var areaInput = document.getElementById("areaInput");
+    var timeInput = document.getElementById("timeInput");
+    var submit = document.getElementById("submit");
+    var selectText = document.getElementById("select_text");
+
+    submit.onclick = function () {
+        if (!nameText.value.length ||
+            !phoneInput.value.length ||
+            !addressInput.value.length ||
+            !areaInput.value.length ||
+            !timeInput.value.length) {
+            alert("请填写相关信息");
+        }else {
+            var text;
+            text = "【预约】" + "\n"
+            "姓名:"+ nameText.value + "\n" +
+            "手机号" + phoneInput.value + "\n" +
+            "地址" + addressInput.value + "\n" +
+            "房屋面积" + areaInput.value + "\n" +
+            "预约时间" + timeInput.value + "\n" +
+            "预约类型" + selectText.options[selectText.value].text + "\n";
+        }
+    }
+</script>
+</body>
+</html>
