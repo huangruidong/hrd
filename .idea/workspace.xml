@@ -15,8 +15,14 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
+<<<<<<< HEAD
+    <leaf> 
       <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
+=======
+    <leaf>
+        
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+>>>>>>> 25f23aca51757b0e6c11a08f4f01efdd44f97dec
         <entry file="file://$PROJECT_DIR$/makeAppointment/index.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="89">
@@ -27,6 +33,7 @@
           </provider>
         </entry>
       </file>
+      
       <file leaf-file-name="makeAppointmentCss.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/makeAppointment/css/makeAppointmentCss.css">
           <provider selected="true" editor-type-id="text-editor">
