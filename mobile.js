@@ -48,7 +48,7 @@ if (window.nativeContext == undefined) {
 }
 
 function JSPush(url, callback) {
-  alert(window.nativeContext);
+  console.log(window.nativeContext + '1111111')
     window.nativeContext.callHandler('push', url, callback);
 }
 
