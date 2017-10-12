@@ -43,80 +43,68 @@ if (userAgent.match(/iPad/i) || userAgent.match(/iPhone/i) || userAgent.match(/i
 if (window.nativeContext == undefined) {
     window.nativeContext = new Object();
     window.nativeContext.callHandler = function (method, data, callback) {
-        console.log('JSBridge method call111 ' + method + ' call received');
+        console.log('JSBridge method call ' + method + ' call received');
     }
 }
 
-function JSPush(url, callback) {
+export function JSPush(url, callback) {
     window.nativeContext.callHandler('push', url, callback);
 }
 
-function JSPresent(url, callback) {
+export function JSPresent(url, callback) {
     window.nativeContext.callHandler('present', url, callback);
 }
 
-function JSPop(result, callback) {
+export function JSPop(result, callback) {
     window.nativeContext.callHandler('pop', result, callback);
 }
 
-function JSClose(result, callback) {
+export function JSClose(result, callback) {
     window.nativeContext.callHandler('close', result, callback);
 }
 
-function JSPopToHome(result, callback) {
-    window.nativeContext.callHandler('popToHome', result, callback);
-}
-
-function JSAlert(title, callback) {
+export function JSAlert(title, callback) {
     window.nativeContext.callHandler('alert', title, callback);
 }
 
-function JSShowLoading(result, callback) {
-    window.nativeContext.callHandler('showLoading', result, callback);
-}
-
-function JSHideLoading(result, callback) {
-    window.nativeContext.callHandler('hideLoading', result, callback);
-}
-
-function JSReloadWebView(url, callback) {
+export function JSReloadWebView(url, callback) {
     window.nativeContext.callHandler('reload', url, callback);
 }
 
-function JSUpdateTitle(title, callback) {
+export function JSUpdateTitle(title, callback) {
     window.nativeContext.callHandler('updateTitle', title, callback);
 }
 
-function JSSetLeftActionButton(title, callback) {
+export function JSSetLeftActionButton(title, callback) {
     window.nativeContext.callHandler('setLeftActionButton', title, callback);
 }
 
-function JSSetRightActionButton(title, callback) {
+export function JSSetRightActionButton(title, callback) {
     window.nativeContext.callHandler('setRightActionButton', title, callback);
 }
 
-function JSLoggedIn(callback) {
+export function JSLoggedIn(callback) {
     window.nativeContext.callHandler('loggedIn', {}, callback);
 }
 
-function JSLoggedOut(callback) {
+export function JSLoggedOut(callback) {
     window.nativeContext.callHandler('loggedOut', {}, callback);
 }
 
-function JSGoBack(callback) {
+export function JSGoBack(callback) {
     window.nativeContext.callHandler('goback', {}, callback);
 }
 
-function JSScanFace(callback) {
+export function JSScanFace(callback) {
     window.nativeContext.callHandler('scanFace', {}, callback);
 }
 
-function JSScanCard(callback) {
-    window.nativeContext.callHandler('scanCard', {}, callback);
+export function JSScanIdCard(callback) {
+    window.nativeContext.callHandler('scanIdCard', {}, callback);
 }
 
-function JSUploadFaceCardInfo(callback) {
-    window.nativeContext.callHandler('uploadFaceCardInfo', {}, callback);
+export function JSUploadFaceAndIdCard(callback) {
+    window.nativeContext.callHandler('uploadFaceAndIdCard', {}, callback);
 }
 
 function initializeEverything() {
