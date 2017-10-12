@@ -47,64 +47,64 @@ if (window.nativeContext == undefined) {
     }
 }
 
-export function JSPush(url, callback) {
+function JSPush(url, callback) {
   alert(111);
     window.nativeContext.callHandler('push', url, callback);
 }
 
-export function JSPresent(url, callback) {
+function JSPresent(url, callback) {
     window.nativeContext.callHandler('present', url, callback);
 }
 
-export function JSPop(result, callback) {
+function JSPop(result, callback) {
     window.nativeContext.callHandler('pop', result, callback);
 }
 
-export function JSClose(result, callback) {
+function JSClose(result, callback) {
     window.nativeContext.callHandler('close', result, callback);
 }
 
-export function JSAlert(title, callback) {
+function JSAlert(title, callback) {
     window.nativeContext.callHandler('alert', title, callback);
 }
 
-export function JSReloadWebView(url, callback) {
+function JSReloadWebView(url, callback) {
     window.nativeContext.callHandler('reload', url, callback);
 }
 
-export function JSUpdateTitle(title, callback) {
+function JSUpdateTitle(title, callback) {
     window.nativeContext.callHandler('updateTitle', title, callback);
 }
 
-export function JSSetLeftActionButton(title, callback) {
+function JSSetLeftActionButton(title, callback) {
     window.nativeContext.callHandler('setLeftActionButton', title, callback);
 }
 
-export function JSSetRightActionButton(title, callback) {
+function JSSetRightActionButton(title, callback) {
     window.nativeContext.callHandler('setRightActionButton', title, callback);
 }
 
-export function JSLoggedIn(callback) {
+function JSLoggedIn(callback) {
     window.nativeContext.callHandler('loggedIn', {}, callback);
 }
 
-export function JSLoggedOut(callback) {
+function JSLoggedOut(callback) {
     window.nativeContext.callHandler('loggedOut', {}, callback);
 }
 
-export function JSGoBack(callback) {
+function JSGoBack(callback) {
     window.nativeContext.callHandler('goback', {}, callback);
 }
 
-export function JSScanFace(callback) {
+function JSScanFace(callback) {
     window.nativeContext.callHandler('scanFace', {}, callback);
 }
 
-export function JSScanIdCard(callback) {
+function JSScanIdCard(callback) {
     window.nativeContext.callHandler('scanIdCard', {}, callback);
 }
 
-export function JSUploadFaceAndIdCard(callback) {
+function JSUploadFaceAndIdCard(callback) {
     window.nativeContext.callHandler('uploadFaceAndIdCard', {}, callback);
 }
 
