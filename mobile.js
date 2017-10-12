@@ -53,7 +53,7 @@ if (window.nativeContext == undefined) {
     }
 }
 
-export function JSPush(url, callback) {
+function JSPush(url, callback) {
     window.nativeContext.callHandler('push', {'url': pathname + url}, callback);
 }
 
