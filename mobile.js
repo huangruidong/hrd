@@ -47,7 +47,7 @@ if (window.nativeContext == undefined) {
     }
 }
 
-function JSPush(url, callback) {
+export function JSPush(url, callback) {
     window.nativeContext.callHandler('push', url, callback);
 }
 
@@ -99,7 +99,7 @@ function JSLoggedIn(callback) {
     window.nativeContext.callHandler('loggedIn', {}, callback);
 }
 
-function JSLoggedOut(callback) {
+export function JSLoggedOut(callback) {
     window.nativeContext.callHandler('loggedOut', {}, callback);
 }
 
