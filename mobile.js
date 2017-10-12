@@ -8,35 +8,35 @@ function setupWebViewJavascriptBridge(callback) {
     window.WVJBCallbacks = [callback];
     var WVJBIframe = document.createElement('iframe');
     WVJBIframe.style.display = 'none';
-    WVJBIframe.src = 'wvjbscheme://__BRIDGE_LOADED__';
+    WVJBIframe.src = 'https://__bridge_loaded__';
     document.documentElement.appendChild(WVJBIframe);
-    setTimeout(function() { document.documentElement.removeChild(WVJBIframe) }, 0)
+    setTimeout(function () { document.documentElement.removeChild(WVJBIframe) }, 0)
 }
 
 function connectWebViewJavascriptBridge(callback) {
     if (window.WebViewJavascriptBridge) {
         callback(WebViewJavascriptBridge)
     } else {
-        document.addEventListener('WebViewJavascriptBridgeReady', function() {callback(WebViewJavascriptBridge)}, false);
+        document.addEventListener('WebViewJavascriptBridgeReady', function () { callback(WebViewJavascriptBridge) }, false);
     }
 }
 
 if (userAgent.match(/iPad/i) || userAgent.match(/iPhone/i) || userAgent.match(/iPod/i)) {
     connectWebViewJavascriptBridge(function (bridge) {
-        window.nativeContext = bridge;
-        window.nativeContext.init(function (data, responseCallback) {
-            responseCallback(data);
-        });
-    });
+                                   window.nativeContext = bridge;
+                                   window.nativeContext.init(function (data, responseCallback) {
+                                                             responseCallback(data);
+                                                             });
+                                   });
 
     initializeEverything();
 } else if (userAgent.match(/Android/i)) {
     connectWebViewJavascriptBridge(function (bridge) {
-        window.nativeContext = bridge;
-        windownativeContext.init(function (data, responseCallback) {
-            responseCallback(data);
-        });
-    });
+                                   window.nativeContext = bridge;
+                                   windownativeContext.init(function (data, responseCallback) {
+                                                            responseCallback(data);
+                                                            });
+                                   });
 
 }
 
@@ -47,12 +47,11 @@ if (window.nativeContext == undefined) {
     }
 }
 
-export function JSPush(url, callback) {
-  console.log(window.nativeContext + '1111111')
+function JSPush(url, callback) {
     window.nativeContext.callHandler('push', url, callback);
 }
 
-export function JSPresent(url, callback) {
+function JSPresent(url, callback) {
     window.nativeContext.callHandler('present', url, callback);
 }
 
@@ -64,8 +63,20 @@ function JSClose(result, callback) {
     window.nativeContext.callHandler('close', result, callback);
 }
 
+function JSPopToHome(result, callback) {
+    window.nativeContext.callHandler('popToHome', result, callback);
+}
+
 function JSAlert(title, callback) {
     window.nativeContext.callHandler('alert', title, callback);
+}
+
+function JSShowLoading(result, callback) {
+    window.nativeContext.callHandler('showLoading', result, callback);
+}
+
+function JSHideLoading(result, callback) {
+    window.nativeContext.callHandler('hideLoading', result, callback);
 }
 
 function JSReloadWebView(url, callback) {
@@ -100,12 +111,12 @@ function JSScanFace(callback) {
     window.nativeContext.callHandler('scanFace', {}, callback);
 }
 
-function JSScanIdCard(callback) {
-    window.nativeContext.callHandler('scanIdCard', {}, callback);
+function JSScanCard(callback) {
+    window.nativeContext.callHandler('scanCard', {}, callback);
 }
 
-function JSUploadFaceAndIdCard(callback) {
-    window.nativeContext.callHandler('uploadFaceAndIdCard', {}, callback);
+function JSUploadFaceCardInfo(callback) {
+    window.nativeContext.callHandler('uploadFaceCardInfo', {}, callback);
 }
 
 function initializeEverything() {
@@ -168,37 +179,37 @@ function initializeEverything() {
 
     function _dispatchMessageFromObjC(messageJSON) {
         setTimeout(function _timeoutDispatchMessageFromObjC() {
-            var message = JSON.parse(messageJSON)
-            var messageHandler
-            var responseCallback
+                   var message = JSON.parse(messageJSON)
+                   var messageHandler
+                   var responseCallback
 
-            if (message.responseId) {
-                responseCallback = responseCallbacks[message.responseId]
-                if (!responseCallback) { return; }
-                responseCallback(message.responseData)
-                delete responseCallbacks[message.responseId]
-            } else {
-                if (message.callbackId) {
-                    var callbackResponseId = message.callbackId
-                    responseCallback = function (responseData) {
-                        _doSend({ responseId: callbackResponseId, responseData: responseData })
-                    }
-                }
+                   if (message.responseId) {
+                   responseCallback = responseCallbacks[message.responseId]
+                   if (!responseCallback) { return; }
+                   responseCallback(message.responseData)
+                   delete responseCallbacks[message.responseId]
+                   } else {
+                   if (message.callbackId) {
+                   var callbackResponseId = message.callbackId
+                   responseCallback = function (responseData) {
+                   _doSend({ responseId: callbackResponseId, responseData: responseData })
+                   }
+                   }
 
-                var handler = WebViewJavascriptBridge._messageHandler
-                if (message.handlerName) {
-                    handler = messageHandlers[message.handlerName]
-                }
+                   var handler = WebViewJavascriptBridge._messageHandler
+                   if (message.handlerName) {
+                   handler = messageHandlers[message.handlerName]
+                   }
 
-                try {
-                    handler(message.data, responseCallback)
-                } catch (exception) {
-                    if (typeof console != 'undefined') {
-                        console.log("WebViewJavascriptBridge: WARNING: javascript handler threw.", message, exception)
-                    }
-                }
-            }
-        })
+                   try {
+                   handler(message.data, responseCallback)
+                   } catch (exception) {
+                   if (typeof console != 'undefined') {
+                   console.log("WebViewJavascriptBridge: WARNING: javascript handler threw.", message, exception)
+                   }
+                   }
+                   }
+                   })
     }
 
     function _handleMessageFromObjC(messageJSON) {
@@ -210,12 +221,12 @@ function initializeEverything() {
     }
 
     window.WebViewJavascriptBridge = {
-        init: init,
-        send: send,
-        registerHandler: registerHandler,
-        callHandler: callHandler,
-        _fetchQueue: _fetchQueue,
-        _handleMessageFromObjC: _handleMessageFromObjC
+    init: init,
+    send: send,
+    registerHandler: registerHandler,
+    callHandler: callHandler,
+    _fetchQueue: _fetchQueue,
+    _handleMessageFromObjC: _handleMessageFromObjC
     }
 
     var doc = document
