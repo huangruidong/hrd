@@ -104,7 +104,7 @@ function JSScanIdCard(callback) {
     window.nativeContext.callHandler('scanIdCard', {}, callback);
 }
 
-export function JSUploadFaceAndIdCard(callback) {
+function JSUploadFaceAndIdCard(callback) {
     window.nativeContext.callHandler('uploadFaceAndIdCard', {}, callback);
 }
 
