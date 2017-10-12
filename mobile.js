@@ -47,12 +47,12 @@ if (window.nativeContext == undefined) {
     }
 }
 
-function JSPush(url, callback) {
+export function JSPush(url, callback) {
   console.log(window.nativeContext + '1111111')
     window.nativeContext.callHandler('push', url, callback);
 }
 
-function JSPresent(url, callback) {
+export function JSPresent(url, callback) {
     window.nativeContext.callHandler('present', url, callback);
 }
 
