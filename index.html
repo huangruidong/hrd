@@ -17,10 +17,11 @@
         <a href="javascript:JSLoggedOut()"><h4>logout</h4></a>
   </body>
     <script>
-    $("#triggerMe").trigger("click");
-alert("111");
+
     function popToEntryCallBack(data){
       if(data){
+        $("#triggerMe").trigger("click");
+          alert("111");
           data=JSON.parse(data);
           if(data.result=="investContinue"){//理财列表
               JSReloadWebView("/list.html");
