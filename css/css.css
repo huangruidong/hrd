@@ -1,0 +1,88 @@
+*{margin:0; padding:0;}
+html{
+    font-family: Microsoft Yahei,sans-serif;
+}
+body{
+    background-color: #fff;
+    width: 100%;
+    max-width: 640px;
+    margin: auto
+}
+
+a{
+    text-decoration: none;
+}
+ul{
+	list-style:none;
+}
+.banner{
+	height: 128px;
+	overflow:hidden;
+}
+.banner img{
+	background-size:contain|cover;
+	background-repeat:no-repeat;
+	width:100%;
+	height: auto;
+}
+.navs{
+	height: 88px;
+}
+.navs ul li{
+	padding-top: 16px;
+	width: 33.3%;
+	height: 72px;
+	float: left;
+	text-align:center;
+	background-color: #fff;
+}
+.navs ul li img{
+	width: 30px;
+	height: 30px;
+}
+
+.navs ul li a{
+	margin-top: 4px;
+	font-size: 12px;
+	color:#333; 
+	display:block;
+}
+.content_tittle{
+	text-align: center;
+}
+.content_tittle p{
+	color: #333;
+	font-size: 16px;
+	font-weight: bold;
+	padding-top: 16px;
+	padding-bottom: 8px;
+}
+.content_list ul li{
+	height: 64px;
+	display: block;
+	margin: 8px 16px;;
+	border-radius: 4px;
+	box-shadow:0px 0px 10px rgba(225,225,225,0.7);
+	background: #fff;
+}
+.content_list img{
+	float: left;
+	widtd: 40px;
+	height: 40px;
+	margin-top: 12px;
+	margin-left: 16px;
+}
+.content_list p{
+	font-size: 14px;
+	line-height: 20px;
+	color: #333;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	padding: 12px 16px 0 16px;
+}
+.content_list p span{
+	font-size: 12px;
+	color: #999;
+}
+
