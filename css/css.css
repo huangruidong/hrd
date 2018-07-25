@@ -8,138 +8,34 @@ body{
     max-width: 677px;
     margin: auto
 }
-a,a:hover,a:active,a:visited,a:link,a:focus{
-    -webkit-tap-highlight-color:rgba(0,0,0,0);
-    -webkit-tap-highlight-color: transparent;
-    outline:none;
-    background: none;
-    text-decoration: none;
-}
-ul{
-	display: block;
-	list-style:none;
-}
-.main{
-	height: 136px;
-	text-align: center;
+.content{
+	text-align: justify;
 	background: #fff;
+	border-radius: 4px;
+	margin: 16px 16px 16px;
+	box-shadow:0px 0px 6px rgba(160,160,160,0.3);
 }
-.main img{
-	padding: 16px 0 4px 0;
-	width: 56px;
-	height: 56px;
+.banner{
+	border-radius: 4px 4px 0px 0px;
+	height: 192px;
+	overflow:hidden;
 }
-.main p{
-	line-height: 24px;
-	color: #333;
+.banner img{
+	background-size:contain|cover;
+	background-repeat:no-repeat;
+	width:100%;
+	height: auto;
+}
+.content dl dt{
+	text-align: center;
+	padding-top: 16px;
 	font-size: 16px;
 	font-weight: bold;
 }
-.main span{
-	line-height: 20px;
-	color: #999;
+.content dl dd{
+	text-indent: 28px;
+	line-height: 24px;
+	padding: 16px;
 	font-size: 14px;
-}
-.content_title{
-	height: 56px;
-	padding-left: 16px;
-	margin-top: 8px;
-	background: #fff;
-	border-bottom: 0.03em solid #ddd;
-}
-.content_search{
-	padding-top: 8px;
-	height: 40px;
-	background: #fff;
-}
-.search-box{
-	height: 32px;
-	background: #f0f0f0;
-	margin-left: 16px;
-	margin-right: 16px;
-	border-radius: 6px;
-}
-.search-box input{
-	-webkit-tap-highlight-color:rgba(0,0,0,0);
-	float: left;
-	border: none;
-	outline: none;
-	background: #f0f0f0;
-	color: #000; 
-	width: 88%;
-	height: 16px;
-	font-size: 14px;
-	padding: 15px 0px;
-}
-.search-icon{
-	display: block;
-	float: left;
-	margin:8px 8px 0 8px;
-	height: 14px;
-	width: 14px;
-	background: url(../images/Search.png) no-repeat;
-	background-size: 100% 100%;
-}
-.content_title p{
-	padding-top: 10px;
-	font-size: 14px;
-	color: #333;
-	line-height: 18px;
-}
-.content_title p span{
-	font-size: 12px;
 	color: #999;
 }
-.content_list{
-	background: #fff;
-}
-.content_list ul li{
-	line-height: 48px;
-	margin-left: 16px;
-	height: 56px;
-	background: #fff;
-	border-bottom: 0.03em solid #ddd;
-}
-.content_list ul li img{
-	float: left;
-	widtd: 40px;
-	height: 40px;
-	margin-top: 8px;
-}
-.content_list ul li p{
-	font-size: 14px;
-	line-height: 20px;
-	color: #333;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	padding: 8px 40px 0 8px;
-}
-.content_list ul li p span{
-	font-size: 12px;
-	color: #999;
-}
-.content_list ul li em{
-	float: right;
-	margin-right: 16px;
-	margin-top: -28px;
-	height: 14px;
-	width: 8px;
-	background: url(../images/ChevronRight.png) no-repeat;
-	background-size: 100% 100%;
-}
-.btn {
-    display: block;
-    height: 40px;
-    font-size: 16px;
-    color: #fff;
-    text-align: center;
-    margin: 32px 16px 0 16px;
-    background: #4a90e2;
-    line-height: 40px;
-    border-radius: 2px;
-}
-.content_list li.last{
-	border: none;
-}
-
