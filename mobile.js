@@ -3,20 +3,18 @@ const CUSTOM_PROTOCOL_SCHEME = 'wallet';
 const responseCallbacks = {};
 
 function _createMessageIframe (src) {
-  console.log("11111_createMessageIframe"+src);
-
   const messagingIframe = document.createElement('iframe');
   messagingIframe.style.display = 'none';
-  messagingIframe.src = "takePhoto";
+  messagingIframe.src = src;
   document.documentElement.appendChild(messagingIframe);
   setTimeout(function () {
-    // document.documentElement.removeChild(messagingIframe);
-  }, 100);
+    document.documentElement.removeChild(messagingIframe);
+  }, 0);
 }
 
 // 调用app原生页面
-function takePhoto (data) {
-  callHandler('takePhoto', data, null);
+function startPage (data) {
+  callHandler('startPage', data, null);
 }
 
 // 调用app原生功能或事件（app原生类的静态方法）,
@@ -72,13 +70,10 @@ function getHandler (handlerName) {
 }
 
 function callHandler (handlerName, data, responseCallback) {
-  console.log("11111callHandler"+handlerName);
-
   _doSend({handlerName: handlerName, data: data}, responseCallback);
 }
 
 function _doSend (message, responseCallback) {
-  console.log("11111"+message);
   if (responseCallback) {
     const callbackId = 'cb_' + new Date().getTime();
     responseCallbacks[callbackId] = responseCallback;
@@ -123,10 +118,6 @@ function _handleMessageFromApp (messageJSON) {
   _dispatchMessageFromApp(messageJSON);
 }
 
-function _handleMessageInitPlatform (message) {
-  window.app.platform = message;
-}
-
 const app = window.app = {
   onRestart: onRestart,
   onBackPressed: onBackPressed,
@@ -140,11 +131,9 @@ const app = window.app = {
   registerHandler: registerHandler,
   getHandler: getHandler,
   callHandler: callHandler,
-  _handleMessageFromApp: _handleMessageFromApp,
-  _handleMessageInitPlatform: _handleMessageInitPlatform,
-  platform: '3'
+  _handleMessageFromApp: _handleMessageFromApp
 };
 app.onBackPressed(function (responseCallback) {
   responseCallback('false');
 });
-_createMessageIframe('wallet://__init_app__');
+// _createMessageIframe('wallet://__init_app__');
