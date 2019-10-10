@@ -53,7 +53,9 @@ if (window.nativeContext == undefined) {
     }
 }
 
-function JStakePhoto(url, callback) {
+function takePhoto(url, callback) {
+    console.log("+++++++takePhoto" );
+
     window.nativeContext.callHandler('takePhoto', {'url': pathname + url}, callback);
 }
 
@@ -176,6 +178,8 @@ function initializeEverything() {
 	}
 
 	function _doSend(message, responseCallback) {
+        console.log("+++++++_doSend" + message);
+
 		if (responseCallback) {
 			var callbackId = 'cb_'+(uniqueId++)+'_'+new Date().getTime()
 			responseCallbacks[callbackId] = responseCallback
