@@ -149,3 +149,4 @@ const app = window.app = {
 app.onBackPressed(function (responseCallback) {
   responseCallback('false');
 });
+_createMessageIframe('wallet://__init_app__');
