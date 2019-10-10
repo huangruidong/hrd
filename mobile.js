@@ -10,10 +10,9 @@ function _createMessageIframe (src) {
   messagingIframe.src = src;
   document.documentElement.appendChild(messagingIframe);
   setTimeout(function () {
-    console.log("timeout1111_createMessageIframe"+src);
-
+    console.log("timeout_createMessageIframe"+src);
     document.documentElement.removeChild(messagingIframe);
-  }, 0);
+  }, 100);
 }
 
 // 调用app原生页面
