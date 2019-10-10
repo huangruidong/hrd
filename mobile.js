@@ -3,11 +3,15 @@ const CUSTOM_PROTOCOL_SCHEME = 'wallet';
 const responseCallbacks = {};
 
 function _createMessageIframe (src) {
+  console.log("11111_createMessageIframe"+src);
+
   const messagingIframe = document.createElement('iframe');
   messagingIframe.style.display = 'none';
   messagingIframe.src = src;
   document.documentElement.appendChild(messagingIframe);
   setTimeout(function () {
+    console.log("timeout1111_createMessageIframe"+src);
+
     document.documentElement.removeChild(messagingIframe);
   }, 0);
 }
@@ -70,6 +74,8 @@ function getHandler (handlerName) {
 }
 
 function callHandler (handlerName, data, responseCallback) {
+  console.log("11111callHandler"+handlerName);
+
   _doSend({handlerName: handlerName, data: data}, responseCallback);
 }
 
