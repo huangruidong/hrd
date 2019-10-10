@@ -174,11 +174,13 @@ function initializeEverything() {
 	}
 
 	function callHandler(handlerName, data, responseCallback) {
+    console.log("+++++++callHandler" + handlerName);
+
 		_doSend({ handlerName:handlerName, data:data }, responseCallback)
 	}
 
 	function _doSend(message, responseCallback) {
-        console.log("+++++++_doSend" + message);
+    console.log("+++++++doSend" + message);
 
 		if (responseCallback) {
 			var callbackId = 'cb_'+(uniqueId++)+'_'+new Date().getTime()
