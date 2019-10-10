@@ -10,8 +10,8 @@ function _createMessageIframe (src) {
   messagingIframe.src = src;
   document.documentElement.appendChild(messagingIframe);
   setTimeout(function () {
-    console.log("timeout_createMessageIframe"+src);
-    document.documentElement.removeChild(messagingIframe);
+    console.log("11timeout_createMessageIframe"+src);
+    // document.documentElement.removeChild(messagingIframe);
   }, 100);
 }
 
