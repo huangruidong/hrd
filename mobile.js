@@ -126,6 +126,7 @@ function _handleMessageInitPlatform (message) {
 const app = window.app = {
   onRestart: onRestart,
   onBackPressed: onBackPressed,
+  startPage: startPage,
   startAction: startAction,
   requestData: requestData,
   get: get,
