@@ -19,8 +19,8 @@ function startAction (data, responseCallback) {
 
 
 // 调用app原生页面
-function takePhoto (data) {
-  callHandler('takePhoto', data, null);
+function takePhoto (data,responseCallback) {
+  callHandler('takePhoto', data, responseCallback);
 }
 
 // 调用app原生功能或事件（app原生类的静态方法）,
