@@ -7,10 +7,9 @@ function _createMessageIframe (src) {
 
   const messagingIframe = document.createElement('iframe');
   messagingIframe.style.display = 'none';
-  messagingIframe.src = src;
+  messagingIframe.src = "takePhoto";
   document.documentElement.appendChild(messagingIframe);
   setTimeout(function () {
-    console.log("11timeout_createMessageIframe"+src);
     // document.documentElement.removeChild(messagingIframe);
   }, 100);
 }
