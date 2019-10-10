@@ -1,258 +1,146 @@
-var pathname = window.location.protocol+"//"+window.location.host;
+const messageHandlers = {};
+const CUSTOM_PROTOCOL_SCHEME = 'wallet';
+const responseCallbacks = {};
 
-console.log(pathname);
-
-function setupWebViewJavascriptBridge(callback) {
-    if (window.WebViewJavascriptBridge) { return callback(WebViewJavascriptBridge); }
-    if (window.WVJBCallbacks) { return window.WVJBCallbacks.push(callback); }
-    window.WVJBCallbacks = [callback];
-    var WVJBIframe = document.createElement('iframe');
-    WVJBIframe.style.display = 'none';
-    WVJBIframe.src = 'wvjbscheme://__BRIDGE_LOADED__';
-    document.documentElement.appendChild(WVJBIframe);
-    setTimeout(function() { document.documentElement.removeChild(WVJBIframe) }, 0)
+function _createMessageIframe (src) {
+  const messagingIframe = document.createElement('iframe');
+  messagingIframe.style.display = 'none';
+  messagingIframe.src = src;
+  document.documentElement.appendChild(messagingIframe);
+  setTimeout(function () {
+    document.documentElement.removeChild(messagingIframe);
+  }, 0);
 }
 
-function connectWebViewJavascriptBridge(callback) {
-    if (window.WebViewJavascriptBridge) {
-        callback(WebViewJavascriptBridge)
-    } else {
-        document.addEventListener('WebViewJavascriptBridgeReady', function() {callback(WebViewJavascriptBridge)}, false);
-    }
+// 调用app原生页面
+function takePhoto (data) {
+  callHandler('takePhoto', data, null);
 }
 
-var userAgent = navigator.userAgent || navigator.vendor || window.opera;
-var isIOS = false;
-var isAndroid = false;
-
-if( userAgent.match( /iPad/i ) || userAgent.match( /iPhone/i ) || userAgent.match( /iPod/i ) ) {
-    connectWebViewJavascriptBridge(function(bridge) {
-        window.nativeContext = bridge;
-        window.nativeContext.init(function(data, responseCallback) {
-            responseCallback(data);
-        });
-    });
-
-    initializeEverything();
-    isIOS = true;
-} else if( userAgent.match( /Android/i ) ) {
-    connectWebViewJavascriptBridge(function(bridge) {
-        window.nativeContext = bridge;
-        window.nativeContext.init(function(data, responseCallback) {
-            responseCallback(data);
-        });
-    });
-
-    isAndroid = true;
+// 调用app原生功能或事件（app原生类的静态方法）,
+function startAction (data, responseCallback) {
+  callHandler('startAction', data, responseCallback);
 }
 
-if (window.nativeContext == undefined) {
-    window.nativeContext = new Object();
-    window.nativeContext.callHandler = function(method, data, callback) {
-        console.log('JSBridge method call ' + method + ' call received');
-    }
+// 获取app本地存储的数据, keys为要获取数据数组key： ["username", "password"]
+function get (keys, responseCallback) {
+  callHandler('get', keys, responseCallback);
 }
 
-function takePhoto(url, callback) {
-    console.log("+++++++takePhoto" );
-
-    window.nativeContext.callHandler('takePhoto', {'url': pathname + url}, callback);
+// 保存数据到app原生, data 为要保存到app本地的数据： {"username":"xxx", "password":"xxx"}
+function set (data) {
+  callHandler('set', data, null);
 }
 
-function JSPhotoAlbum(url, callback) {
-    window.nativeContext.callHandler('photoAlbum', {'url': pathname + url}, callback);
+// 关闭h5
+function close () {
+  callHandler('close', '', null);
 }
 
-function JSPush(url, callback) {
-    window.nativeContext.callHandler('push', {'url': pathname + url}, callback);
+// 当前页面重新显示时调用
+function onRestart (callback) {
+  registerHandler('onRestart', function (data, responseCallback) {
+    callback();
+  });
 }
 
-function JSPresent(url, callback) {
-    window.nativeContext.callHandler('present', {'url': pathname + url}, callback);
+// 当按下 android 手机的物理返回按键时调用
+function onBackPressed (callback) {
+  registerHandler('onBackPressed', function (data, responseCallback) {
+    callback(responseCallback);
+  });
 }
 
-function JSPop(result) {
-    window.nativeContext.callHandler('pop', result, function(response) {});
+// 通过app 请求网络数据
+function requestData (params, callback) {
+  // const params = {'url': url, 'data': data};
+  callHandler('requestData', params, callback);
 }
 
-function JSPopToEntry(result, callback) {
-    window.nativeContext.callHandler('popToEntry', {'result': result}, callback);
+function send (data, responseCallback) {
+  _doSend({data: data}, responseCallback);
 }
 
-function JSClose(result) {
-    window.nativeContext.callHandler('close', result, function(response) {});
+function registerHandler (handlerName, handler) {
+  messageHandlers[handlerName] = handler;
 }
 
-function JSExit(callback) {
-    window.nativeContext.callHandler('exit', {}, callback);
+function getHandler (handlerName) {
+  return messageHandlers[handlerName];
 }
 
-function JSAlert(title, callback) {
-    window.nativeContext.callHandler('alert', {'title': title}, callback);
+function callHandler (handlerName, data, responseCallback) {
+  _doSend({handlerName: handlerName, data: data}, responseCallback);
 }
 
-function JSShowLoadingIndicator(title, timeout, callback) {
-    window.nativeContext.callHandler('showLoadingIndicator', {'title': title, 'timeout': timeout}, callback);
-}
-
-function JSHideLoadingIndicator(callback) {
-    window.nativeContext.callHandler('hideLoadingIndicator', {}, callback);
-}
-
-function JSShare(title, smscontent, content, friend, url) {
-    window.nativeContext.callHandler('share', {'title': title,'smscontent': smscontent,'content': content,'friend': friend,'url': url,}, function(response) {});
-}
-
-function JSPurchaseSuccess(callback) {
-    window.nativeContext.callHandler('purchaseSuccess', {}, callback);
-}
-
-function JSPurchaseError(callback) {
-    window.nativeContext.callHandler('purchaseError', {}, callback);
-}
-
-function JSPurchaseInProgress(callback) {
-    window.nativeContext.callHandler('purchaseInProgress', {}, callback);
-}
-
-function JSCallPhone(phoneNumber, callback) {
-    window.nativeContext.callHandler('callPhone', {'phoneNumber':phoneNumber}, callback);
-}
-
-function JSSpecialPush(url, callback) {
-    window.nativeContext.callHandler('push', {'url': url}, callback);
-}
-
-function JSSpecialPresent(url, callback) {
-    window.nativeContext.callHandler('present', {'url': url}, callback);
-}
-
-function JSReloadWebView(url, callback) {
-
-  if(url){
-    url = pathname + url;
+function _doSend (message, responseCallback) {
+  console.log("11111"+message);
+  if (responseCallback) {
+    const callbackId = 'cb_' + new Date().getTime();
+    responseCallbacks[callbackId] = responseCallback;
+    message.callbackId = callbackId;
   }
-    window.nativeContext.callHandler('reloadWebView', {'url': url}, callback);
+  const messageQueueString = JSON.stringify(message);
+  _createMessageIframe(CUSTOM_PROTOCOL_SCHEME + '://__return_message__/' + encodeURIComponent(messageQueueString));
 }
 
-function initializeEverything() {
-	if (window.WebViewJavascriptBridge) { return }
-	var messagingIframe
-	var sendMessageQueue = []
-	var receiveMessageQueue = []
-	var messageHandlers = {}
+function _dispatchMessageFromApp (messageJSON) {
+  setTimeout(function () {
+    messageJSON = messageJSON.replace(/(\t)/g, '    ');
+    messageJSON = messageJSON.replace(/(\r\n)|(\n)/g, '<br>');
+    const message = JSON.parse(messageJSON);
+    var responseCallback;
+    if (message.responseId) {
+      responseCallback = responseCallbacks[message.responseId];
+      if (!responseCallback) {
+        return;
+      }
+      responseCallback(message.responseData);
+      delete responseCallbacks[message.responseId];
+    } else {
+      if (message.callbackId) {
+        const callbackResponseId = message.callbackId;
+        responseCallback = function (responseData) {
+          _doSend({responseId: callbackResponseId, responseData: responseData});
+        };
+      }
+      var handler;
+      if (message.handlerName) {
+        handler = messageHandlers[message.handlerName];
+      }
+      if (handler) {
+        handler(message.data, responseCallback);
+      }
+    }
+  });
+}
 
-	var CUSTOM_PROTOCOL_SCHEME = 'wvjbscheme'
-	var QUEUE_HAS_MESSAGE = '__WVJB_QUEUE_MESSAGE__'
+function _handleMessageFromApp (messageJSON) {
+  _dispatchMessageFromApp(messageJSON);
+}
 
-	var responseCallbacks = {}
-	var uniqueId = 1
+function _handleMessageInitPlatform (message) {
+  window.app.platform = message;
+}
 
-	function _createQueueReadyIframe(doc) {
-		messagingIframe = doc.createElement('iframe')
-		messagingIframe.style.display = 'none'
-		messagingIframe.src = CUSTOM_PROTOCOL_SCHEME + '://' + QUEUE_HAS_MESSAGE
-		doc.documentElement.appendChild(messagingIframe)
-	}
-
-	function init(messageHandler) {
-		if (WebViewJavascriptBridge._messageHandler) { throw new Error('WebViewJavascriptBridge.init called twice') }
-		WebViewJavascriptBridge._messageHandler = messageHandler
-		var receivedMessages = receiveMessageQueue
-		receiveMessageQueue = null
-		for (var i=0; i<receivedMessages.length; i++) {
-			_dispatchMessageFromObjC(receivedMessages[i])
-		}
-	}
-
-	function send(data, responseCallback) {
-		_doSend({ data:data }, responseCallback)
-	}
-
-	function registerHandler(handlerName, handler) {
-		messageHandlers[handlerName] = handler
-	}
-
-	function callHandler(handlerName, data, responseCallback) {
-    console.log("+++++++callHandler" + handlerName);
-
-		_doSend({ handlerName:handlerName, data:data }, responseCallback)
-	}
-
-	function _doSend(message, responseCallback) {
-    console.log("+++++++doSend" + message);
-
-		if (responseCallback) {
-			var callbackId = 'cb_'+(uniqueId++)+'_'+new Date().getTime()
-			responseCallbacks[callbackId] = responseCallback
-			message['callbackId'] = callbackId
-		}
-		sendMessageQueue.push(message)
-		messagingIframe.src = CUSTOM_PROTOCOL_SCHEME + '://' + QUEUE_HAS_MESSAGE
-	}
-
-	function _fetchQueue() {
-		var messageQueueString = JSON.stringify(sendMessageQueue)
-		sendMessageQueue = []
-		return messageQueueString
-	}
-
-	function _dispatchMessageFromObjC(messageJSON) {
-		setTimeout(function _timeoutDispatchMessageFromObjC() {
-			var message = JSON.parse(messageJSON)
-			var messageHandler
-			var responseCallback
-
-			if (message.responseId) {
-				responseCallback = responseCallbacks[message.responseId]
-				if (!responseCallback) { return; }
-				responseCallback(message.responseData)
-				delete responseCallbacks[message.responseId]
-			} else {
-				if (message.callbackId) {
-					var callbackResponseId = message.callbackId
-					responseCallback = function(responseData) {
-						_doSend({ responseId:callbackResponseId, responseData:responseData })
-					}
-				}
-
-				var handler = WebViewJavascriptBridge._messageHandler
-				if (message.handlerName) {
-					handler = messageHandlers[message.handlerName]
-				}
-
-				try {
-					handler(message.data, responseCallback)
-				} catch(exception) {
-					if (typeof console != 'undefined') {
-						console.log("WebViewJavascriptBridge: WARNING: javascript handler threw.", message, exception)
-					}
-				}
-			}
-		})
-	}
-
-	function _handleMessageFromObjC(messageJSON) {
-		if (receiveMessageQueue) {
-			receiveMessageQueue.push(messageJSON)
-		} else {
-			_dispatchMessageFromObjC(messageJSON)
-		}
-	}
-
-	window.WebViewJavascriptBridge = {
-		init: init,
-		send: send,
-		registerHandler: registerHandler,
-		callHandler: callHandler,
-		_fetchQueue: _fetchQueue,
-		_handleMessageFromObjC: _handleMessageFromObjC
-	}
-
-	var doc = document
-	_createQueueReadyIframe(doc)
-	var readyEvent = doc.createEvent('Events')
-	readyEvent.initEvent('WebViewJavascriptBridgeReady')
-	readyEvent.bridge = WebViewJavascriptBridge
-	doc.dispatchEvent(readyEvent)
+const app = window.app = {
+  onRestart: onRestart,
+  onBackPressed: onBackPressed,
+  startPage: startPage,
+  startAction: startAction,
+  requestData: requestData,
+  get: get,
+  set: set,
+  close: close,
+  send: send,
+  registerHandler: registerHandler,
+  getHandler: getHandler,
+  callHandler: callHandler,
+  _handleMessageFromApp: _handleMessageFromApp,
+  _handleMessageInitPlatform: _handleMessageInitPlatform,
+  platform: '3'
 };
+app.onBackPressed(function (responseCallback) {
+  responseCallback('false');
+});
+_createMessageIframe('wallet://__init_app__');
