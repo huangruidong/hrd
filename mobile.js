@@ -20,11 +20,15 @@ function startAction (data, responseCallback) {
 
 // 调用app原生页面
 function takePhoto (data,responseCallback) {
+    console.log('-------takePhoto callHandler');
+
   callHandler('takePhoto', data, responseCallback);
 }
 
 // 调用app原生功能或事件（app原生类的静态方法）,
 function startAction (data, responseCallback) {
+    console.log('-------startAction callHandler');
+
   callHandler('startAction', data, responseCallback);
 }
 
@@ -40,7 +44,9 @@ function set (data) {
 
 // 关闭h5
 function close () {
-  callHandler('close', '', null);
+    console.log('-------close callHandler');
+
+  callHandler('close', 'close', null);
 }
 
 // 当前页面重新显示时调用
@@ -76,21 +82,21 @@ function getHandler (handlerName) {
 }
 
 function callHandler (handlerName, data, responseCallback) {
-  console.log(handlerName, data, responseCallback);
-  console.log('拍照调试callHandler');
+  console.log(handlerName);
   _doSend({handlerName: handlerName, data: data}, responseCallback);
 }
 
 function _doSend (message, responseCallback) {
-  console.log(message, responseCallback);
-  console.log('拍照调试doSend');
+  console.log("dosend" + message);
   if (responseCallback) {
     const callbackId = 'cb_' + new Date().getTime();
     responseCallbacks[callbackId] = responseCallback;
     message.callbackId = callbackId;
   }
   const messageQueueString = JSON.stringify(message);
-  _createMessageIframe(CUSTOM_PROTOCOL_SCHEME + '://__return_message__/' + encodeURIComponent(messageQueueString));
+messagingIframe.src = CUSTOM_PROTOCOL_SCHEME + '://' + QUEUE_HAS_MESSAGE
+
+//  _createMessageIframe(CUSTOM_PROTOCOL_SCHEME + '://__return_message__/' + encodeURIComponent(messageQueueString));
 }
 
 function _dispatchMessageFromApp (messageJSON) {
