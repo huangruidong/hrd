@@ -3,6 +3,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <script type="text/javascript" src="mobile2.js" ></script>
+    <script src="./materialize.min.js"></script>
+
 </head>
 <body>
 <br>
@@ -16,19 +18,38 @@
 </html>
 <script>
 
-    bridge.init(function(message, responseCallback) {
-        var data = {
-            'Javascript Responds': 'Wee!'
-        };
-        //添加代码用来弹出Activity发送的默认消息
-        alert(message);
-        responseCallback(data);
-    });
+    function connectWebViewJavascriptBridge(callback) {
+        if (window.WebViewJavascriptBridge) {
+            callback(WebViewJavascriptBridge)
+        } else {
+            document.addEventListener(
+                'WebViewJavascriptBridgeReady'
+                , function() {
+                    callback(WebViewJavascriptBridge)
+                },
+                false
+            );
+        }
+    }
 
-    bridge.registerHandler("getImageData", function (data, responseCallback) {
-        alert(data);
-        var data2 = document.getElementById("text1").value;
-        var responseData = "我是Android调用js方法返回的数据---" + data2;
-                responseCallback(responseData);
-    });
+    //注册回调函数，第一次连接时调用 初始化函数
+    connectWebViewJavascriptBridge(function(bridge) {
+        //初始化
+        bridge.init(function(message, responseCallback) {
+            var data = {
+                'Javascript Responds': 'Wee!'
+            };
+            alert(message);
+            responseCallback(data);
+        });
+
+
+        //Android调用js方法：functionInJs方法名称需要保持一致 ，并返回给Android通知
+        bridge.registerHandler("getImageData", function(data, responseCallback) {
+            alert(data);
+            var data2 = document.getElementById("text1").value;
+            var responseData = "我是Android调用js方法返回的数据---"+ data2;
+            responseCallback(responseData);
+        });
+    })
 </script>
