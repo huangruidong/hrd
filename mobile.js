@@ -7,9 +7,9 @@ function _createMessageIframe (src) {
   messagingIframe.style.display = 'none';
   messagingIframe.src = src;
   document.documentElement.appendChild(messagingIframe);
-  // setTimeout(function () {
-  //   document.documentElement.removeChild(messagingIframe);
-  // }, 0);
+  setTimeout(function () {
+    document.documentElement.removeChild(messagingIframe);
+  }, 0);
 }
 
 function takePhoto (data) {
