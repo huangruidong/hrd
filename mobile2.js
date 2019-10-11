@@ -133,7 +133,7 @@ function initializeEverything() {
 	}
 
 	function _dispatchMessageFromObjC(messageJSON) {
-		alert(messageJSON);
+
 		setTimeout(function _timeoutDispatchMessageFromObjC() {
 			var message = JSON.parse(messageJSON)
 			var messageHandler
@@ -161,7 +161,9 @@ function initializeEverything() {
 					handler(message.data, responseCallback)
 				} catch(exception) {
 					if (typeof console != 'undefined') {
-						console.log("WebViewJavascriptBridge: WARNING: javascript handler threw.", message, exception)
+                        alert(messageJSON)
+                        console.log("111111"+message + "22222"+messageJSON)
+                        console.log("WebViewJavascriptBridge: WARNING: javascript handler threw.", message, exception)
 					}
 				}
 			}
