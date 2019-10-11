@@ -12,6 +12,11 @@ function _createMessageIframe (src) {
   // }, 0);
 }
 
+function takePhoto (data) {
+  callHandler('takePhoto', data, null);
+}
+
+
 // 调用app原生页面
 function startPage (data) {
   callHandler('startPage', data, null);
