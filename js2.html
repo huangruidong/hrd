@@ -4,15 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="./materialize.min.css">
-    <!--<script src="./materialize.min.js"></script>-->
     <title>Test</title>
 </head>
 <body>
 </body>
 <script>
 
-    //JS注册事件监听
     function connectWebViewJavascriptBridge(callback) {
         if (window.WebViewJavascriptBridge) {
             callback(WebViewJavascriptBridge)
@@ -27,7 +24,6 @@
         }
     }
 
-    //注册回调函数，第一次连接时调用 初始化函数
     connectWebViewJavascriptBridge(function(bridge) {
         //初始化
         bridge.init(function(message, responseCallback) {
@@ -39,7 +35,6 @@
         });
 
 
-        //Android调用js方法：functionInJs方法名称需要保持一致 ，并返回给Android通知
         bridge.registerHandler("getImageData", function(data, responseCallback) {
             alert(data);
             var data2 = document.getElementById("text1").value;
