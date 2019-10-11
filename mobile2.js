@@ -53,6 +53,10 @@ if (window.nativeContext == undefined) {
     }
 }
 
+function takePhoto(url, callback) {
+    window.nativeContext.callHandler('takePhoto', {'url': pathname + url}, callback);
+}
+
 function JStakePhoto(url, callback) {
     window.nativeContext.callHandler('takePhoto', {'url': pathname + url}, callback);
 }
