@@ -1,5 +1,5 @@
 const messageHandlers = {};
-const CUSTOM_PROTOCOL_SCHEME = 'wallet';
+const CUSTOM_PROTOCOL_SCHEME = 'wvjbscheme';
 const responseCallbacks = {};
 
 function _createMessageIframe (src) {
@@ -7,9 +7,9 @@ function _createMessageIframe (src) {
   messagingIframe.style.display = 'none';
   messagingIframe.src = src;
   document.documentElement.appendChild(messagingIframe);
-  setTimeout(function () {
-    document.documentElement.removeChild(messagingIframe);
-  }, 0);
+  // setTimeout(function () {
+  //   document.documentElement.removeChild(messagingIframe);
+  // }, 0);
 }
 
 // 调用app原生页面
@@ -80,7 +80,7 @@ function _doSend (message, responseCallback) {
     message.callbackId = callbackId;
   }
   const messageQueueString = JSON.stringify(message);
-  _createMessageIframe(CUSTOM_PROTOCOL_SCHEME + '://__return_message__/' + encodeURIComponent(messageQueueString));
+  _createMessageIframe(CUSTOM_PROTOCOL_SCHEME + '://' + encodeURIComponent(messageQueueString));
 }
 
 function _dispatchMessageFromApp (messageJSON) {
@@ -136,4 +136,3 @@ const app = window.app = {
 app.onBackPressed(function (responseCallback) {
   responseCallback('false');
 });
-// _createMessageIframe('wallet://__init_app__');
