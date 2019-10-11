@@ -1,41 +1,34 @@
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-        <script type="text/javascript" src="mobile2.js" ></script>
-    </head>
-    <body>
-      <br>
-      <br>
-      <a href="javascript:JStakePhoto()"><h4>拍照（takePhoto）</h4></a>
-      <a href="javascript:requestData()"><h4>requestData（requestData）</h4></a>
-      <a href="javascript:startAction()"><h4>相册（photoAlbum）</h4></a>
-      <a href="javascript:close()"><h4>关闭（close）</h4></a>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <script type="text/javascript" src="mobile2.js" ></script>
+</head>
+<body>
+<br>
+<br>
+<a href="javascript:JStakePhoto()"><h4>拍照（takePhoto）</h4></a>
+<a href="javascript:requestData()"><h4>requestData（requestData）</h4></a>
+<a href="javascript:startAction()"><h4>相册（photoAlbum）</h4></a>
+<a href="javascript:close()"><h4>关闭（close）</h4></a>
 
-    </body>
+</body>
 </html>
 <script>
-    
-        //初始化
-        connectWebViewJavascriptBridge(function (bridge) {
-            //初始化
-            bridge.init(function (message, responseCallback) {
-                var data = {
-                    'Javascript Responds': 'Wee!'
-                };
-                alert("jasdashjd");
-                responseCallback(data);
-            });
 
+    bridge.init(function(message, responseCallback) {
+        var data = {
+            'Javascript Responds': 'Wee!'
+        };
+        //添加代码用来弹出Activity发送的默认消息
+        alert(message);
+        responseCallback(data);
+    });
 
-            //Android调用js方法：functionInJs方法名称需要保持一致 ，并返回给Android通知
-
-            bridge.registerHandler("getImageData", function (data, responseCallback) {
-                alert(data);
-                var data2 = document.getElementById("text1").value;
-                var responseData = "我是Android调用js方法返回的数据---" + data2;
+    bridge.registerHandler("getImageData", function (data, responseCallback) {
+        alert(data);
+        var data2 = document.getElementById("text1").value;
+        var responseData = "我是Android调用js方法返回的数据---" + data2;
                 responseCallback(responseData);
-            });
-        })
-
+    });
 </script>
