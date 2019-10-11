@@ -53,88 +53,8 @@ if (window.nativeContext == undefined) {
     }
 }
 
-function takePhoto(url, callback) {
-    window.nativeContext.callHandler('takePhoto', {'url': pathname + url}, callback);
-}
-
 function JStakePhoto(url, callback) {
     window.nativeContext.callHandler('takePhoto', {'url': pathname + url}, callback);
-}
-
-function JSPhotoAlbum(url, callback) {
-    window.nativeContext.callHandler('photoAlbum', {'url': pathname + url}, callback);
-}
-
-function JSPush(url, callback) {
-    window.nativeContext.callHandler('push', {'url': pathname + url}, callback);
-}
-
-function JSPresent(url, callback) {
-    window.nativeContext.callHandler('present', {'url': pathname + url}, callback);
-}
-
-function JSPop(result) {
-    window.nativeContext.callHandler('pop', result, function(response) {});
-}
-
-function JSPopToEntry(result, callback) {
-    window.nativeContext.callHandler('popToEntry', {'result': result}, callback);
-}
-
-function JSClose(result) {
-    window.nativeContext.callHandler('close', result, function(response) {});
-}
-
-function JSExit(callback) {
-    window.nativeContext.callHandler('exit', {}, callback);
-}
-
-function JSAlert(title, callback) {
-    window.nativeContext.callHandler('alert', {'title': title}, callback);
-}
-
-function JSShowLoadingIndicator(title, timeout, callback) {
-    window.nativeContext.callHandler('showLoadingIndicator', {'title': title, 'timeout': timeout}, callback);
-}
-
-function JSHideLoadingIndicator(callback) {
-    window.nativeContext.callHandler('hideLoadingIndicator', {}, callback);
-}
-
-function JSShare(title, smscontent, content, friend, url) {
-    window.nativeContext.callHandler('share', {'title': title,'smscontent': smscontent,'content': content,'friend': friend,'url': url,}, function(response) {});
-}
-
-function JSPurchaseSuccess(callback) {
-    window.nativeContext.callHandler('purchaseSuccess', {}, callback);
-}
-
-function JSPurchaseError(callback) {
-    window.nativeContext.callHandler('purchaseError', {}, callback);
-}
-
-function JSPurchaseInProgress(callback) {
-    window.nativeContext.callHandler('purchaseInProgress', {}, callback);
-}
-
-function JSCallPhone(phoneNumber, callback) {
-    window.nativeContext.callHandler('callPhone', {'phoneNumber':phoneNumber}, callback);
-}
-
-function JSSpecialPush(url, callback) {
-    window.nativeContext.callHandler('push', {'url': url}, callback);
-}
-
-function JSSpecialPresent(url, callback) {
-    window.nativeContext.callHandler('present', {'url': url}, callback);
-}
-
-function JSReloadWebView(url, callback) {
-
-  if(url){
-    url = pathname + url;
-  }
-    window.nativeContext.callHandler('reloadWebView', {'url': url}, callback);
 }
 
 function initializeEverything() {
