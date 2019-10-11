@@ -53,8 +53,25 @@ if (window.nativeContext == undefined) {
     }
 }
 
+// 调用相机
 function JStakePhoto(url, callback) {
     window.nativeContext.callHandler('takePhoto', {'url': pathname + url}, callback);
+}
+
+// 调用相册
+function JSPhotoAlbum(url, callback) {
+    window.nativeContext.callHandler('photoAlbum', {'url': pathname + url}, callback);
+}
+
+// 接受图片
+function JSGetImageData(url, callback) {
+	return window.nativeContext.registerHandler("getImageData", function(data, responseCallback){});
+}
+
+function JSGetImageData (callback) {
+    registerHandler('getImageData', function (data, responseCallback) {
+        callback();
+    });
 }
 
 function initializeEverything() {
@@ -116,6 +133,7 @@ function initializeEverything() {
 	}
 
 	function _dispatchMessageFromObjC(messageJSON) {
+		alert(messageJSON);
 		setTimeout(function _timeoutDispatchMessageFromObjC() {
 			var message = JSON.parse(messageJSON)
 			var messageHandler
