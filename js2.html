@@ -1,29 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script type="text/javascript" src="mobile2.js" ></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="./materialize.min.css">
-    <!-- Compiled and minified JavaScript -->
     <script src="./materialize.min.js"></script>
     <title>Test</title>
-
 </head>
 <body>
-<br>
-<br>
-<a href="javascript:JStakePhoto()"><h4>拍照（takePhoto）</h4></a>
-<a href="javascript:requestData()"><h4>requestData（requestData）</h4></a>
-<a href="javascript:startAction()"><h4>相册（photoAlbum）</h4></a>
-<a href="javascript:close()"><h4>关闭（close）</h4></a>
-
+<div class="input-field col s6">
+    <input placeholder="请输入数据" id="text1" type="text" class="validate">
+</div>
+<a class="waves-effect waves-light btn" onclick="testClick();">button</a>
+<a class="waves-effect waves-light btn" onclick="testClick2();">button</a>
 </body>
-</html>
 <script>
 
+    //JS注册事件监听
     function connectWebViewJavascriptBridge(callback) {
         if (window.WebViewJavascriptBridge) {
             callback(WebViewJavascriptBridge)
@@ -51,11 +45,13 @@
 
 
         //Android调用js方法：functionInJs方法名称需要保持一致 ，并返回给Android通知
-        bridge.registerHandler("getImageData", function(data, responseCallback) {
+        bridge.registerHandler("functionInJs", function(data, responseCallback) {
             alert(data);
             var data2 = document.getElementById("text1").value;
             var responseData = "我是Android调用js方法返回的数据---"+ data2;
             responseCallback(responseData);
         });
     })
+
 </script>
+</html>
