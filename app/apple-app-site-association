@@ -1,0 +1,13 @@
+{
+    "applinks": {
+        "apps": [],
+        "details": [{
+            "appID": "JVBHJ45769.com.pgzt.production",
+            "paths": ["/app/*"]
+            },
+            {
+                "appID": "JVBHJ45769.com.pgzt.develop",
+                "paths": ["/app/*"]
+        }]
+    }
+}
