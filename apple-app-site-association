@@ -1,10 +1,7 @@
 {
     "applinks": {
         "apps": [],
-        "details": [{
-            "appID": "JVBHJ45769.com.pgzt.production",
-            "paths": ["*"]
-            },
+        "details": [
             {
                 "appID": "JVBHJ45769.com.pgzt.develop",
                 "paths": ["*"]
