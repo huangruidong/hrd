@@ -2,20 +2,30 @@ const messageHandlers = {};
 const CUSTOM_PROTOCOL_SCHEME = 'wvjbscheme';
 const responseCallbacks = {};
 
-function _createMessageIframe (src) {
-  const messagingIframe = document.createElement('iframe');
-  messagingIframe.style.display = 'none';
-  messagingIframe.src = src;
-  document.documentElement.appendChild(messagingIframe);
-  setTimeout(function () {
-    document.documentElement.removeChild(messagingIframe);
-  }, 0);
+function _createMessageIframe(callback) {
+    if (window.WebViewJavascriptBridge) { return callback(WebViewJavascriptBridge); }
+    if (window.WVJBCallbacks) { return window.WVJBCallbacks.push(callback); }
+    window.WVJBCallbacks = [callback];
+    var WVJBIframe = document.createElement('iframe');
+    WVJBIframe.style.display = 'none';
+    WVJBIframe.src = 'wvjbscheme://__BRIDGE_LOADED__';
+    document.documentElement.appendChild(WVJBIframe);
+    setTimeout(function() { document.documentElement.removeChild(WVJBIframe) }, 0)
+}
+
+// function _createMessageIframe (src) {
+//   const messagingIframe = document.createElement('iframe');
+//   messagingIframe.style.display = 'none';
+//   messagingIframe.src = src;
+//   document.documentElement.appendChild(messagingIframe);
+//   setTimeout(function () {
+//     document.documentElement.removeChild(messagingIframe);
+//   }, 0);
 }
 
 function takePhoto (data) {
   callHandler('takePhoto', data, null);
 }
-
 
 // 调用app原生页面
 function startPage (data) {
