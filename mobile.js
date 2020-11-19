@@ -24,7 +24,10 @@ function _createMessageIframe(callback) {
 }
 
 function takePhoto (data) {
-  console.log('进入了takePhoto');
+  this.$toast({
+                type: 'fail',
+                message: '进入了takePhoto'
+              });
   callHandler('takePhoto', data, null);
 }
 
@@ -51,6 +54,10 @@ function set (data) {
 // 关闭h5
 function close () {
   console.log('进入了');
+  this.$toast({
+                type: 'fail',
+                message: 'close'
+              });
   callHandler('close', '', null);
 }
 
