@@ -24,6 +24,7 @@ function _createMessageIframe(callback) {
 }
 
 function takePhoto (data) {
+  console.log('进入了takePhoto');
   callHandler('takePhoto', data, null);
 }
 
@@ -49,6 +50,7 @@ function set (data) {
 
 // 关闭h5
 function close () {
+  console.log('进入了');
   callHandler('close', '', null);
 }
 
